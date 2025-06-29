@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Correspondent } from 'src/app/data/correspondent'
 import { CustomField } from 'src/app/data/custom-field'
@@ -37,10 +37,12 @@ export interface GlobalSearchResult {
   providedIn: 'root',
 })
 export class SearchService {
-  private http = inject(HttpClient)
-  private settingsService = inject(SettingsService)
+  public readonly searchResultObjectLimit: number = 3 // documents/views.py GlobalSearchView > OBJECT_LIMIT
 
-  public readonly searchResultObjectLimit: number = 3
+  constructor(
+    private http: HttpClient,
+    private settingsService: SettingsService
+  ) {}
 
   autocomplete(term: string): Observable<string[]> {
     return this.http.get<string[]>(

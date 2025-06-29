@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import {
   ActivatedRouteSnapshot,
   Router,
@@ -11,10 +11,12 @@ import { ToastService } from '../services/toast.service'
 
 @Injectable()
 export class PermissionsGuard {
-  private permissionsService = inject(PermissionsService)
-  private router = inject(Router)
-  private toastService = inject(ToastService)
-  private tourService = inject(TourService)
+  constructor(
+    private permissionsService: PermissionsService,
+    private router: Router,
+    private toastService: ToastService,
+    private tourService: TourService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

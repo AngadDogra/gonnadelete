@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { ParamMap, Router } from '@angular/router'
 import { Observable, Subject, first, takeUntil } from 'rxjs'
 import {
@@ -91,10 +91,6 @@ export interface ListViewState {
   providedIn: 'root',
 })
 export class DocumentListViewService {
-  private documentService = inject(DocumentService)
-  private settings = inject(SettingsService)
-  private router = inject(Router)
-
   isReloading: boolean = false
   initialized: boolean = false
   error: string = null
@@ -120,7 +116,11 @@ export class DocumentListViewService {
     return this.activeListViewState.title
   }
 
-  constructor() {
+  constructor(
+    private documentService: DocumentService,
+    private settings: SettingsService,
+    private router: Router
+  ) {
     let documentListViewConfigJson = localStorage.getItem(
       DOCUMENT_LIST_SERVICE.CURRENT_VIEW_CONFIG
     )

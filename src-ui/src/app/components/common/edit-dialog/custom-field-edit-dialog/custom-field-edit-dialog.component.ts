@@ -5,7 +5,6 @@ import {
   OnInit,
   QueryList,
   ViewChildren,
-  inject,
 } from '@angular/core'
 import {
   FormArray,
@@ -14,6 +13,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
 import { takeUntil } from 'rxjs'
 import {
@@ -54,11 +54,13 @@ export class CustomFieldEditDialogComponent
       .select_options as FormArray
   }
 
-  constructor() {
-    super()
-    this.service = inject(CustomFieldsService)
-    this.userService = inject(UserService)
-    this.settingsService = inject(SettingsService)
+  constructor(
+    service: CustomFieldsService,
+    activeModal: NgbActiveModal,
+    userService: UserService,
+    settingsService: SettingsService
+  ) {
+    super(service, activeModal, userService, settingsService)
   }
 
   ngOnInit(): void {

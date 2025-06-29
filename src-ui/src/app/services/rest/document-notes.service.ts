@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DocumentNote } from 'src/app/data/document-note'
@@ -8,9 +8,8 @@ import { AbstractPaperlessService } from './abstract-paperless-service'
   providedIn: 'root',
 })
 export class DocumentNotesService extends AbstractPaperlessService<DocumentNote> {
-  constructor() {
-    super()
-    this.resourceName = 'documents'
+  constructor(http: HttpClient) {
+    super(http, 'documents')
   }
 
   getNotes(documentId: number): Observable<DocumentNote[]> {

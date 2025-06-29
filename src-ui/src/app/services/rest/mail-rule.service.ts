@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { tap } from 'rxjs/operators'
 import { MailRule } from 'src/app/data/mail-rule'
@@ -9,9 +10,8 @@ import { AbstractPaperlessService } from './abstract-paperless-service'
 export class MailRuleService extends AbstractPaperlessService<MailRule> {
   loading: boolean
 
-  constructor() {
-    super()
-    this.resourceName = 'mail_rules'
+  constructor(http: HttpClient) {
+    super(http, 'mail_rules')
   }
 
   private reload() {

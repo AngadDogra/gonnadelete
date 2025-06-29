@@ -176,16 +176,22 @@ describe('OpenDocumentsService', () => {
       OPEN_DOCUMENT_SERVICE.DOCUMENTS,
       JSON.stringify(documents)
     )
-    openDocumentsService.load()
-    expect(openDocumentsService.getOpenDocuments()).toHaveLength(
+    const testOpenDocumentsService = new OpenDocumentsService(
+      null,
+      modalService
+    )
+    expect(testOpenDocumentsService.getOpenDocuments()).toHaveLength(
       documents.length
     )
   })
 
   it('should remove open documents from localStorage on error', () => {
     sessionStorage.setItem(OPEN_DOCUMENT_SERVICE.DOCUMENTS, 'hello world')
-    openDocumentsService.load()
-    expect(openDocumentsService.getOpenDocuments()).toHaveLength(0)
+    const testOpenDocumentsService = new OpenDocumentsService(
+      null,
+      modalService
+    )
+    expect(testOpenDocumentsService.getOpenDocuments()).toHaveLength(0)
     expect(sessionStorage.getItem(OPEN_DOCUMENT_SERVICE.DOCUMENTS)).toBeNull()
   })
 

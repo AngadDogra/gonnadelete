@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 import { Observable, switchMap } from 'rxjs'
 import { Group } from 'src/app/data/group'
 import { PermissionsService } from '../permissions.service'
@@ -8,11 +9,11 @@ import { AbstractNameFilterService } from './abstract-name-filter-service'
   providedIn: 'root',
 })
 export class GroupService extends AbstractNameFilterService<Group> {
-  private permissionService = inject(PermissionsService)
-
-  constructor() {
-    super()
-    this.resourceName = 'groups'
+  constructor(
+    http: HttpClient,
+    private permissionService: PermissionsService
+  ) {
+    super(http, 'groups')
   }
 
   update(o: Group): Observable<Group> {

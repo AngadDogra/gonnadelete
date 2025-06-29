@@ -1,4 +1,4 @@
-import { inject, Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core'
 import {
   PermissionsService,
   PermissionType,
@@ -13,10 +13,10 @@ export class StoragePathNamePipe
   extends ObjectNamePipe
   implements PipeTransform
 {
-  constructor() {
-    super()
-    this.permissionsService = inject(PermissionsService)
-    this.permissionType = PermissionType.StoragePath
-    this.objectService = inject(StoragePathService)
+  constructor(
+    permissionsService: PermissionsService,
+    objectService: StoragePathService
+  ) {
+    super(permissionsService, PermissionType.StoragePath, objectService)
   }
 }

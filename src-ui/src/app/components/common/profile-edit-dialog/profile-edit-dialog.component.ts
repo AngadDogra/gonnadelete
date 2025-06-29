@@ -1,5 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard'
-import { Component, OnInit, inject } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   FormControl,
   FormGroup,
@@ -46,11 +46,6 @@ export class ProfileEditDialogComponent
   extends LoadingComponentWithPermissions
   implements OnInit
 {
-  private profileService = inject(ProfileService)
-  activeModal = inject(NgbActiveModal)
-  private toastService = inject(ToastService)
-  private clipboard = inject(Clipboard)
-
   public networkActive: boolean = false
   public error: any
 
@@ -87,6 +82,15 @@ export class ProfileEditDialogComponent
 
   public socialAccounts: SocialAccount[] = []
   public socialAccountProviders: SocialAccountProvider[] = []
+
+  constructor(
+    private profileService: ProfileService,
+    public activeModal: NgbActiveModal,
+    private toastService: ToastService,
+    private clipboard: Clipboard
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.networkActive = true

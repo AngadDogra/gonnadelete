@@ -1,11 +1,15 @@
-import { Component, ViewChild, inject } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms'
-import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
+import {
+  NgbActiveModal,
+  NgbAlert,
+  NgbAlertModule,
+} from '@ng-bootstrap/ng-bootstrap'
 import { EditDialogComponent } from 'src/app/components/common/edit-dialog/edit-dialog.component'
 import { IMAPSecurity, MailAccount } from 'src/app/data/mail-account'
 import { MailAccountService } from 'src/app/services/rest/mail-account.service'
@@ -43,11 +47,13 @@ export class MailAccountEditDialogComponent extends EditDialogComponent<MailAcco
 
   @ViewChild('testResultAlert', { static: false }) testResultAlert: NgbAlert
 
-  constructor() {
-    super()
-    this.service = inject(MailAccountService)
-    this.userService = inject(UserService)
-    this.settingsService = inject(SettingsService)
+  constructor(
+    service: MailAccountService,
+    activeModal: NgbActiveModal,
+    userService: UserService,
+    settingsService: SettingsService
+  ) {
+    super(service, activeModal, userService, settingsService)
   }
 
   getCreateTitle() {

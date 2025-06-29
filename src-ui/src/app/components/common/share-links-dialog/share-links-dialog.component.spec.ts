@@ -10,7 +10,6 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { By } from '@angular/platform-browser'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons'
@@ -34,8 +33,6 @@ describe('ShareLinksDialogComponent', () => {
       imports: [
         ShareLinksDialogComponent,
         NgxBootstrapIconsModule.pick(allIcons),
-        FormsModule,
-        ReactiveFormsModule,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
@@ -226,18 +223,16 @@ describe('ShareLinksDialogComponent', () => {
     )
   })
 
-  it('should disable archive switch & option if no archive available', (done) => {
+  it('should disable archive switch & option if no archive available', () => {
     component.hasArchiveVersion = false
     component.ngOnInit()
     fixture.detectChanges()
     expect(component.useArchiveVersion).toBeFalsy()
-    setTimeout(() => {
-      // some stupid change detection issue
-      const inputEl = fixture.debugElement.query(By.css('#versionSwitch'))
-        .nativeElement as HTMLInputElement
-      expect(inputEl.disabled).toBeTruthy()
-      done()
-    })
+    expect(
+      fixture.debugElement.query(By.css("input[type='checkbox']")).attributes[
+        'ng-reflect-is-disabled'
+      ]
+    ).toBeTruthy()
   })
 
   it('should support close', () => {

@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 import { Observable, switchMap } from 'rxjs'
 import { User } from 'src/app/data/user'
 import { PermissionsService } from '../permissions.service'
@@ -9,11 +10,11 @@ const endpoint = 'users'
   providedIn: 'root',
 })
 export class UserService extends AbstractNameFilterService<User> {
-  private permissionService = inject(PermissionsService)
-
-  constructor() {
-    super()
-    this.resourceName = endpoint
+  constructor(
+    http: HttpClient,
+    private permissionService: PermissionsService
+  ) {
+    super(http, endpoint)
   }
 
   update(o: User): Observable<User> {

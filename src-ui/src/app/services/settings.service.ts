@@ -1,8 +1,8 @@
+import { DOCUMENT } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import {
-  DOCUMENT,
   EventEmitter,
-  inject,
+  Inject,
   Injectable,
   LOCALE_ID,
   Renderer2,
@@ -268,15 +268,6 @@ const ISO_LANGUAGE_OPTION: LanguageOption = {
   providedIn: 'root',
 })
 export class SettingsService {
-  private document = inject(DOCUMENT)
-  private cookieService = inject(CookieService)
-  private meta = inject(Meta)
-  private localeId = inject(LOCALE_ID)
-  protected http = inject(HttpClient)
-  private toastService = inject(ToastService)
-  private permissionsService = inject(PermissionsService)
-  private customFieldsService = inject(CustomFieldsService)
-
   protected baseUrl: string = environment.apiBaseUrl + 'ui_settings/'
 
   private settings: Object = {}
@@ -302,9 +293,17 @@ export class SettingsService {
   }
   public displayFieldsInit: EventEmitter<boolean> = new EventEmitter()
 
-  constructor() {
-    const rendererFactory = inject(RendererFactory2)
-
+  constructor(
+    rendererFactory: RendererFactory2,
+    @Inject(DOCUMENT) private document,
+    private cookieService: CookieService,
+    private meta: Meta,
+    @Inject(LOCALE_ID) private localeId: string,
+    protected http: HttpClient,
+    private toastService: ToastService,
+    private permissionsService: PermissionsService,
+    private customFieldsService: CustomFieldsService
+  ) {
     this._renderer = rendererFactory.createRenderer(null, null)
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   NgbDropdownModule,
   NgbModal,
@@ -42,16 +42,20 @@ export class CustomFieldsComponent
   extends LoadingComponentWithPermissions
   implements OnInit
 {
-  private customFieldsService = inject(CustomFieldsService)
-  permissionsService = inject(PermissionsService)
-  private modalService = inject(NgbModal)
-  private toastService = inject(ToastService)
-  private documentListViewService = inject(DocumentListViewService)
-  private settingsService = inject(SettingsService)
-  private documentService = inject(DocumentService)
-  private savedViewService = inject(SavedViewService)
-
   public fields: CustomField[] = []
+
+  constructor(
+    private customFieldsService: CustomFieldsService,
+    public permissionsService: PermissionsService,
+    private modalService: NgbModal,
+    private toastService: ToastService,
+    private documentListViewService: DocumentListViewService,
+    private settingsService: SettingsService,
+    private documentService: DocumentService,
+    private savedViewService: SavedViewService
+  ) {
+    super()
+  }
 
   ngOnInit() {
     this.reload()

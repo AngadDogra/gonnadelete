@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common'
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgSelectComponent } from '@ng-select/ng-select'
@@ -58,9 +58,6 @@ export enum OwnerFilterType {
   ],
 })
 export class PermissionsFilterDropdownComponent extends ComponentWithPermissions {
-  permissionsService = inject(PermissionsService)
-  private settingsService = inject(SettingsService)
-
   public OwnerFilterType = OwnerFilterType
 
   @Input()
@@ -86,12 +83,12 @@ export class PermissionsFilterDropdownComponent extends ComponentWithPermissions
     )
   }
 
-  constructor() {
-    const userService = inject(UserService)
-
+  constructor(
+    public permissionsService: PermissionsService,
+    userService: UserService,
+    private settingsService: SettingsService
+  ) {
     super()
-    const permissionsService = this.permissionsService
-
     if (
       permissionsService.currentUserCan(
         PermissionAction.View,

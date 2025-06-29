@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import {
   FormControl,
   FormGroup,
@@ -28,10 +28,6 @@ import { ComponentWithPermissions } from '../with-permissions/with-permissions.c
   ],
 })
 export class DocumentNotesComponent extends ComponentWithPermissions {
-  private notesService = inject(DocumentNotesService)
-  private toastService = inject(ToastService)
-  private usersService = inject(UserService)
-
   noteForm: FormGroup = new FormGroup({
     newNote: new FormControl(''),
   })
@@ -52,7 +48,11 @@ export class DocumentNotesComponent extends ComponentWithPermissions {
   updated: EventEmitter<DocumentNote[]> = new EventEmitter()
   users: User[]
 
-  constructor() {
+  constructor(
+    private notesService: DocumentNotesService,
+    private toastService: ToastService,
+    private usersService: UserService
+  ) {
     super()
     this.usersService.listAll().subscribe({
       next: (users) => {

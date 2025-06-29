@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  inject,
   Input,
   Output,
 } from '@angular/core'
@@ -56,9 +55,7 @@ import { UrlComponent } from '../url/url.component'
 export class CustomFieldsValuesComponent extends AbstractInputComponent<Object> {
   public CustomFieldDataType = CustomFieldDataType
 
-  constructor() {
-    const customFieldsService = inject(CustomFieldsService)
-
+  constructor(customFieldsService: CustomFieldsService) {
     super()
     customFieldsService.listAll().subscribe((items) => {
       this.fields = items.results

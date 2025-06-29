@@ -1,4 +1,4 @@
-import { Component, forwardRef, inject } from '@angular/core'
+import { Component, forwardRef } from '@angular/core'
 import {
   FormsModule,
   NG_VALUE_ACCESSOR,
@@ -26,9 +26,7 @@ import { AbstractInputComponent } from '../../abstract-input'
 export class PermissionsGroupComponent extends AbstractInputComponent<Group> {
   groups: Group[]
 
-  constructor() {
-    const groupService = inject(GroupService)
-
+  constructor(groupService: GroupService) {
     super()
     groupService
       .listAll()

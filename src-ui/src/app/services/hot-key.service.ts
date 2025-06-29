@@ -1,4 +1,5 @@
-import { DOCUMENT, Injectable, inject } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { Inject, Injectable } from '@angular/core'
 import { EventManager } from '@angular/platform-browser'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
@@ -14,17 +15,17 @@ export interface ShortcutOptions {
   providedIn: 'root',
 })
 export class HotKeyService {
-  private eventManager = inject(EventManager)
-  private document = inject<Document>(DOCUMENT)
-  private modalService = inject(NgbModal)
-
   private defaults: Partial<ShortcutOptions> = {
     element: this.document,
   }
 
   private hotkeys: Map<string, string> = new Map()
 
-  constructor() {
+  constructor(
+    private eventManager: EventManager,
+    @Inject(DOCUMENT) private document: Document,
+    private modalService: NgbModal
+  ) {
     this.addShortcut({ keys: 'shift.?' }).subscribe(() => {
       this.openHelpModal()
     })

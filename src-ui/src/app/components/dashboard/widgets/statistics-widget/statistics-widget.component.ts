@@ -1,6 +1,6 @@
 import { DecimalPipe } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
-import { Component, inject, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap'
 import * as mimeTypeNames from 'mime-names'
@@ -51,11 +51,15 @@ export class StatisticsWidgetComponent
   extends ComponentWithPermissions
   implements OnInit, OnDestroy
 {
-  private http = inject(HttpClient)
-  private websocketConnectionService = inject(WebsocketStatusService)
-  private documentListViewService = inject(DocumentListViewService)
-
   loading: boolean = false
+
+  constructor(
+    private http: HttpClient,
+    private websocketConnectionService: WebsocketStatusService,
+    private documentListViewService: DocumentListViewService
+  ) {
+    super()
+  }
 
   statistics: Statistics = {}
 

@@ -1,11 +1,4 @@
-import {
-  Directive,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  inject,
-} from '@angular/core'
+import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
@@ -36,12 +29,14 @@ export abstract class EditDialogComponent<
   extends LoadingComponentWithPermissions
   implements OnInit
 {
-  protected service = inject<AbstractPaperlessService<T>>(
-    AbstractPaperlessService
-  )
-  protected activeModal = inject(NgbActiveModal)
-  protected userService = inject(UserService)
-  protected settingsService = inject(SettingsService)
+  constructor(
+    protected service: AbstractPaperlessService<T>,
+    private activeModal: NgbActiveModal,
+    private userService: UserService,
+    protected settingsService: SettingsService
+  ) {
+    super()
+  }
 
   users: User[]
 

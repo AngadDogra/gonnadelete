@@ -6,7 +6,6 @@ import {
   Input,
   Output,
   ViewChild,
-  inject,
 } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import {
@@ -64,10 +63,14 @@ export class DocumentCardSmallComponent
   extends LoadingComponentWithPermissions
   implements AfterViewInit
 {
-  private documentService = inject(DocumentService)
-  settingsService = inject(SettingsService)
-
   DisplayField = DisplayField
+
+  constructor(
+    private documentService: DocumentService,
+    public settingsService: SettingsService
+  ) {
+    super()
+  }
 
   @Input()
   selected = false

@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { DirtyCheckGuard } from '@ngneat/dirty-check-forms'
 import { Observable, Subject } from 'rxjs'
@@ -6,7 +6,9 @@ import { ConfirmDialogComponent } from 'src/app/components/common/confirm-dialog
 
 @Injectable({ providedIn: 'root' })
 export class DirtyFormGuard extends DirtyCheckGuard {
-  private modalService = inject(NgbModal)
+  constructor(private modalService: NgbModal) {
+    super()
+  }
 
   confirmChanges(): Observable<boolean> {
     let modal = this.modalService.open(ConfirmDialogComponent, {

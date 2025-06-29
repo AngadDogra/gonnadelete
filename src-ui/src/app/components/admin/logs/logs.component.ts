@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap'
@@ -29,8 +28,12 @@ export class LogsComponent
   extends LoadingComponentWithPermissions
   implements OnInit, OnDestroy
 {
-  private logService = inject(LogService)
-  private changedetectorRef = inject(ChangeDetectorRef)
+  constructor(
+    private logService: LogService,
+    private changedetectorRef: ChangeDetectorRef
+  ) {
+    super()
+  }
 
   public logs: string[] = []
 

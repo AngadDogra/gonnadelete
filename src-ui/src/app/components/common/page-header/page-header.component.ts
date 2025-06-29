@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment'
   imports: [NgbPopoverModule, NgxBootstrapIconsModule, TourNgBootstrapModule],
 })
 export class PageHeaderComponent {
-  private titleService = inject(Title)
+  constructor(private titleService: Title) {}
 
   _title = ''
 

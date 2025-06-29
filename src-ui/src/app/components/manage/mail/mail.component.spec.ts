@@ -158,14 +158,13 @@ describe('MailComponent', () => {
 
   it('should show errors on load if load mailAccounts failure', () => {
     const toastErrorSpy = jest.spyOn(toastService, 'showError')
-    jest.spyOn(mailAccountService, 'getCached').mockReturnValue(of(null))
     jest
       .spyOn(mailAccountService, 'listAll')
       .mockImplementation(() =>
         throwError(() => new Error('failed to load mail accounts'))
       )
     completeSetup(mailAccountService)
-    expect(toastErrorSpy).toHaveBeenCalled()
+    expect(toastErrorSpy).toBeCalled()
   })
 
   it('should show errors on load if load mailRules failure', () => {
@@ -176,7 +175,7 @@ describe('MailComponent', () => {
         throwError(() => new Error('failed to load mail rules'))
       )
     completeSetup(mailRuleService)
-    expect(toastErrorSpy).toHaveBeenCalled()
+    expect(toastErrorSpy).toBeCalled()
   })
 
   it('should support edit / create mail account, show error if needed', () => {

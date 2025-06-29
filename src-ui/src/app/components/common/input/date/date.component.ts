@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  inject,
   Input,
   OnInit,
   Output,
@@ -46,9 +45,13 @@ export class DateComponent
   extends AbstractInputComponent<string>
   implements OnInit
 {
-  private settings = inject(SettingsService)
-  private ngbDateParserFormatter = inject(NgbDateParserFormatter)
-  private isoDateAdapter = inject<NgbDateAdapter<string>>(NgbDateAdapter)
+  constructor(
+    private settings: SettingsService,
+    private ngbDateParserFormatter: NgbDateParserFormatter,
+    private isoDateAdapter: NgbDateAdapter<string>
+  ) {
+    super()
+  }
 
   @Input()
   suggestions: string[]

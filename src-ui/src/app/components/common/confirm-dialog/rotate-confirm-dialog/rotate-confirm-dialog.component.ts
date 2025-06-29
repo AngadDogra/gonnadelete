@@ -1,5 +1,6 @@
 import { NgStyle } from '@angular/common'
-import { Component, inject } from '@angular/core'
+import { Component } from '@angular/core'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
 import { SafeHtmlPipe } from 'src/app/pipes/safehtml.pipe'
 import { DocumentService } from 'src/app/services/rest/document.service'
@@ -12,8 +13,6 @@ import { ConfirmDialogComponent } from '../confirm-dialog.component'
   imports: [NgStyle, NgxBootstrapIconsModule, SafeHtmlPipe],
 })
 export class RotateConfirmDialogComponent extends ConfirmDialogComponent {
-  documentService = inject(DocumentService)
-
   public documentID: number
   public showPDFNote: boolean = true
 
@@ -26,8 +25,11 @@ export class RotateConfirmDialogComponent extends ConfirmDialogComponent {
     return degrees
   }
 
-  constructor() {
-    super()
+  constructor(
+    activeModal: NgbActiveModal,
+    public documentService: DocumentService
+  ) {
+    super(activeModal)
   }
 
   rotate(clockwise: boolean = true) {

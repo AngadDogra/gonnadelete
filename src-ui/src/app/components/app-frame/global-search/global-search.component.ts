@@ -6,7 +6,6 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
-  inject,
 } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -70,17 +69,6 @@ import { WorkflowEditDialogComponent } from '../../common/edit-dialog/workflow-e
   ],
 })
 export class GlobalSearchComponent implements OnInit {
-  searchService = inject(SearchService)
-  private router = inject(Router)
-  private modalService = inject(NgbModal)
-  private documentService = inject(DocumentService)
-  private documentListViewService = inject(DocumentListViewService)
-  private permissionsService = inject(PermissionsService)
-  private toastService = inject(ToastService)
-  private hotkeyService = inject(HotKeyService)
-  private settingsService = inject(SettingsService)
-  private locationStrategy = inject(LocationStrategy)
-
   public DataType = DataType
   public query: string
   public queryDebounce: Subject<string>
@@ -102,7 +90,18 @@ export class GlobalSearchComponent implements OnInit {
     )
   }
 
-  constructor() {
+  constructor(
+    public searchService: SearchService,
+    private router: Router,
+    private modalService: NgbModal,
+    private documentService: DocumentService,
+    private documentListViewService: DocumentListViewService,
+    private permissionsService: PermissionsService,
+    private toastService: ToastService,
+    private hotkeyService: HotKeyService,
+    private settingsService: SettingsService,
+    private locationStrategy: LocationStrategy
+  ) {
     this.queryDebounce = new Subject<string>()
 
     this.queryDebounce

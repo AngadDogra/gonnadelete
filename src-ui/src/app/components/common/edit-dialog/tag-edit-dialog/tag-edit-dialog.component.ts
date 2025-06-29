@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core'
+import { Component } from '@angular/core'
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { EditDialogComponent } from 'src/app/components/common/edit-dialog/edit-dialog.component'
 import { DEFAULT_MATCHING_ALGORITHM } from 'src/app/data/matching-model'
 import { Tag } from 'src/app/data/tag'
@@ -35,11 +36,13 @@ import { TextComponent } from '../../input/text/text.component'
   ],
 })
 export class TagEditDialogComponent extends EditDialogComponent<Tag> {
-  constructor() {
-    super()
-    this.service = inject(TagService)
-    this.userService = inject(UserService)
-    this.settingsService = inject(SettingsService)
+  constructor(
+    service: TagService,
+    activeModal: NgbActiveModal,
+    userService: UserService,
+    settingsService: SettingsService
+  ) {
+    super(service, activeModal, userService, settingsService)
   }
 
   getCreateTitle() {

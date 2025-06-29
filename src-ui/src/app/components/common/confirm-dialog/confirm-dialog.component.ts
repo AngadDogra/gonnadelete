@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common'
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subject } from 'rxjs'
 import { SafeHtmlPipe } from 'src/app/pipes/safehtml.pipe'
@@ -12,7 +12,9 @@ import { LoadingComponentWithPermissions } from '../../loading-component/loading
   imports: [DecimalPipe, SafeHtmlPipe],
 })
 export class ConfirmDialogComponent extends LoadingComponentWithPermissions {
-  activeModal = inject(NgbActiveModal)
+  constructor(public activeModal: NgbActiveModal) {
+    super()
+  }
 
   @Output()
   public confirmClicked = new EventEmitter()

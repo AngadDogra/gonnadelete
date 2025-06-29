@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, of } from 'rxjs'
 import { first } from 'rxjs/operators'
@@ -11,16 +11,12 @@ import { DocumentService } from './rest/document.service'
   providedIn: 'root',
 })
 export class OpenDocumentsService {
-  private documentService = inject(DocumentService)
-  private modalService = inject(NgbModal)
-
   private MAX_OPEN_DOCUMENTS = 5
 
-  constructor() {
-    this.load()
-  }
-
-  public load() {
+  constructor(
+    private documentService: DocumentService,
+    private modalService: NgbModal
+  ) {
     if (sessionStorage.getItem(OPEN_DOCUMENT_SERVICE.DOCUMENTS)) {
       try {
         this.openDocuments = JSON.parse(
